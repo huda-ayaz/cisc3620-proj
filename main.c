@@ -77,6 +77,12 @@ mat4_t rotation_matrix_y;
 mat4_t rotation_matrix_z;
 mat4_t translate_matrix;
 
+//to keep track of animation time
+int frame_target_time = 16; // ~60 FPS
+Uint32 animation_start_time = 0; // SDL time when animation starts
+float animation_duration = 5.0f; // Total duration of the animation in seconds
+float elapsed_time = 0.0f;
+
 // mat4_t world_matrix;
 
 // void initialize_matrices();
@@ -370,6 +376,12 @@ void project_pyramid() {
 void update_state() {
 	clear_color_buffer(0x000000); // black
 
+    Uint32 current_time = SDL_GetTicks();
+    elapsed_time = (float)(current_time - animation_start_time) / 1000.0f; // Convert to seconds
+
+    //makes sure progress is at 100
+    float progress = elapsed_time / animation_duration;
+
     // matrix incorporation
     scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
     rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); //pass the angle as float
@@ -380,6 +392,7 @@ void update_state() {
     cube_rotation.x += .01;
     //cube_rotation.y += .01;
     //cube_rotation.z += .01;
+    
 
     cube_scale.x += .01;
     cube_scale.y += .01;
@@ -387,11 +400,9 @@ void update_state() {
     cube_translate.y += .009;
     cube_translate.x += .03 ;
 
-
-    project_cube();
-    project_pyramid();
-
-    for (int i = 0; i < t_cnt; i++) {
+    if(current_time > 10000 && current_time < 20000){
+        project_cube();
+        for (int i = 0; i < t_cnt; i++) {
         triangle_t triangle = triangles_to_render[i]; 
         for (int j = 0; j < 3; j++) {
             // loop through every triangle then draw every vertex of every triangle
@@ -403,6 +414,22 @@ void update_state() {
             draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
         }
     }
+
+    }
+    //project_pyramid();
+
+    // for (int i = 0; i < t_cnt; i++) {
+    //     triangle_t triangle = triangles_to_render[i]; 
+    //     for (int j = 0; j < 3; j++) {
+    //         // loop through every triangle then draw every vertex of every triangle
+    //         draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
+    //         draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
+    //         draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+    //         draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, 0xFFFFFF);
+    //         draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, 0xFFFFFF);
+    //         draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+    //     }
+    // }
     t_cnt = 0;
 }
 
@@ -411,11 +438,13 @@ int main(void) {
     set_up_memory_buffers();
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN); // set to full screen upon running
 
+    animation_start_time = SDL_GetTicks();
+
     while (is_running) {
         process_keyboard_input();
         update_state();
         run_render_pipeline();
-        SDL_Delay(16);
+        SDL_Delay(frame_target_time);
     }
     clean_up_windowing_system();
     free(color_buffer); 

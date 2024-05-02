@@ -79,7 +79,7 @@ mat4_t rotation_matrix_z;
 mat4_t translate_matrix;
 
 //to keep track of animation time
-int frames = 16; // ~60 FPS
+// int frame_target_time = 16; // ~60 FPS
 Uint32 animation_start_time = 0; // SDL time when animation starts
 float animation_duration = 5.0f; // Total duration of the animation in seconds
 float elapsed_time = 0.0f;

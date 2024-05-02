@@ -69,3 +69,5 @@ face_t p_mesh_faces[P_MESH_FACES] = {
     { 1, 2, 3 },  // Base face (lower triangle)
     // { 3, 4, 1 }   // Base face (upper triangle)
 };
+
+

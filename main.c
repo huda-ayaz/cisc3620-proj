@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/sdl_mixer.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -77,6 +78,12 @@ mat4_t rotation_matrix_y;
 mat4_t rotation_matrix_z;
 mat4_t translate_matrix;
 
+//to keep track of animation time
+// int frame_target_time = 16; // ~60 FPS
+Uint32 animation_start_time = 0; // SDL time when animation starts
+float animation_duration = 5.0f; // Total duration of the animation in seconds
+float elapsed_time = 0.0f;
+
 // mat4_t world_matrix;
 
 // void initialize_matrices();
@@ -129,6 +136,18 @@ bool initialize_windowing_system() {
         fprintf(stderr, "SDL_CreateTexture failed");
         return false;
     }
+
+    if(Mix_Init(0) != 0){
+        fprintf(stderr, "Mix_Init() Failed\n");
+    }
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 128);
+    Mix_Music* music = Mix_LoadMUS("audio/djo.wav");
+    if(!music){
+        fprintf(stderr, "MUSIC NOT PLAYING!\n");
+    }
+    Mix_PlayMusic(music, 0);
+
+    //the final will be 25 short answer questions
     
     return true;
 }
@@ -137,6 +156,7 @@ void clean_up_windowing_system() {
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    Mix_Quit();
     SDL_Quit();
 }
 
@@ -370,40 +390,119 @@ void project_pyramid() {
 void update_state() {
 	clear_color_buffer(0x000000); // black
 
-    // matrix incorporation
-    scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
-    rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); //pass the angle as float
-    rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
-    rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
-    translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
+    Uint32 current_time = SDL_GetTicks();
+    printf("Current SDL Ticks: %u\n", current_time);
 
-    cube_rotation.x += .01;
-    //cube_rotation.y += .01;
-    //cube_rotation.z += .01;
+    elapsed_time = (float)(current_time - animation_start_time) / 1000.0f; // Convert to seconds
+    if (elapsed_time >= 5.0f &&  elapsed_time <= 10.0f) {
+        //makes sure progress is at 100
+        //float progress = elapsed_time / animation_duration;
 
-    cube_scale.x += .01;
-    cube_scale.y += .01;
-    cube_scale.z += .01;
-    cube_translate.y += .009;
-    cube_translate.x += .03 ;
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); //pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
+        translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
 
+        cube_rotation.x += .01;
+        //cube_rotation.y += .01;
+        //cube_rotation.z += .01;
+        
 
-    project_cube();
-    project_pyramid();
+        cube_scale.x += .01;
+        cube_scale.y += .01;
+        cube_scale.z += .01;
+        cube_translate.y += .009;
+        cube_translate.x += .03 ;
+        project_cube();
 
-    for (int i = 0; i < t_cnt; i++) {
-        triangle_t triangle = triangles_to_render[i]; 
-        for (int j = 0; j < 3; j++) {
-            // loop through every triangle then draw every vertex of every triangle
-            draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-            draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-            draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
-            draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-            draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-            draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+        
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i]; 
+            for (int j = 0; j < 3; j++) {
+                // loop through every triangle then draw every vertex of every triangle
+                draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+            }
         }
+        t_cnt = 0;
     }
-    t_cnt = 0;
+    if (elapsed_time >= 11.0f && elapsed_time <= 16.0f) {
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(p_rotation.x); //pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(p_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(p_rotation.z);
+        translate_matrix = mat4_make_translate(p_translate.x, p_translate.y, p_translate.z);
+
+        p_rotation.x += .01;
+        //cube_rotation.y += .01;
+        //cube_rotation.z += .01;
+        
+
+        p_scale.x += .01;
+        p_scale.y += .01;
+        p_scale.z += .01;
+        p_translate.y += .009;
+        p_translate.x += .03 ;
+
+        project_pyramid();
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i]; 
+            for (int j = 0; j < 3; j++) {
+                // loop through every triangle then draw every vertex of every triangle
+                draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+            }
+        }
+        t_cnt = 0;
+
+        
+    }
+
+        if (elapsed_time >= 17.0f && elapsed_time <= 21.0f) {
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(p_rotation.x); //pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(p_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(p_rotation.z);
+        translate_matrix = mat4_make_translate(p_translate.x, p_translate.y, p_translate.z);
+
+        p_rotation.x -= .01;
+        //cube_rotation.y += .01;
+        //cube_rotation.z += .01;
+        
+
+        p_scale.x -= .01;
+        p_scale.y -= .01;
+        p_scale.z -= .01;
+        p_translate.y -= .009;
+        p_translate.x -= .03 ;
+
+        project_pyramid();
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i]; 
+            for (int j = 0; j < 3; j++) {
+                // loop through every triangle then draw every vertex of every triangle
+                draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+                draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+            }
+        }
+        t_cnt = 0;
+    }
 }
 
 int main(void) { 
@@ -411,11 +510,13 @@ int main(void) {
     set_up_memory_buffers();
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN); // set to full screen upon running
 
+    animation_start_time = SDL_GetTicks();
+
     while (is_running) {
         process_keyboard_input();
         update_state();
         run_render_pipeline();
-        SDL_Delay(16);
+        SDL_Delay(frame_target_time);
     }
     clean_up_windowing_system();
     free(color_buffer); 

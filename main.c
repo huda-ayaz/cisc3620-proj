@@ -97,6 +97,8 @@ vec2_t triangle_c = {.x = 500, .y = 400}; // side c
 // basically just creating a vector 3 that can hold values of vec2_t's
 vec3_t_of_vec2_t lead_triangle = {.a = {.x = 0, .y = 0}, .b = {.x = 0, .y = 0}, .c = {.x = 0, .y = 0}};
 
+int act2_triangle_travel = 0;
+
 void update_state();
 
 // vvvvvvvvvvvv BASIC SETUP FILES vvvvvvvvvvvv//
@@ -523,8 +525,6 @@ void update_state()
         }
     }
 
-    // ---------------------------------ACT I: SCENE 3 - Introducing Cubes———————————————— //
-
     // ---------------------------------ACT I: SCENE 2 - Introducing Square--------------------------------- //
     // Pop in grid of blue squares
     if (elapsed_time >= 6.0f && elapsed_time <= 10.0f)
@@ -586,7 +586,7 @@ void update_state()
         draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
     }
 
-// ---------------------------------ACT I: SCENE 3 - Introducing Cubes———————————————— //
+    // ---------------------------------ACT I: SCENE 3 - Introducing Cubes———————————————— //
 
     if (elapsed_time >= 15.0f && elapsed_time < 20.0f)
     {
@@ -862,6 +862,43 @@ void update_state()
             }
         }
         t_cnt = 0;
+    }
+
+    // ---------------------------------ACT II: SCENE 1 - Introducing Cubes———————————————— //
+
+    if (elapsed_time >= 28.0f && elapsed_time <= 37.0f)
+    {
+        if (act2_triangle_travel <= 200)
+        {
+            act2_triangle_travel++;
+        }
+        else
+        {
+            clear_color_buffer(0xffc0cb); // light pink
+        }
+        draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
+        draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
+
+        if ((elapsed_time >= 33.0f && elapsed_time <= 33.5f) || (elapsed_time >= 35.0f && elapsed_time <= 35.5f))
+        {
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xFFd500);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
+        }
+        else if ((elapsed_time >= 33.5f && elapsed_time <= 34.0f) || (elapsed_time >= 35.5f && elapsed_time <= 36.0f))
+        {
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xFFC000);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x50bdff);
+        }
+        else if ((elapsed_time >= 34.0f && elapsed_time <= 34.5f) || (elapsed_time >= 36.0f && elapsed_time <= 36.5f))
+        {
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
+        }
+        else if ((elapsed_time >= 34.5f && elapsed_time <= 35.0f) || (elapsed_time >= 36.5f && elapsed_time <= 37.0f))
+        {
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
+        }
     }
 }
 

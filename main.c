@@ -504,11 +504,12 @@ void update_state()
         // cube_rotation.y += .01;
         // cube_rotation.z += .01;
 
-        cube_scale.x += .01;
-        cube_scale.y += .01;
-        cube_scale.z += .01;
-        cube_translate.y += .009;
-        cube_translate.x += .03;
+        cube_scale.x = 1;
+        // cube_scale.x += .01;
+        // cube_scale.y += .01;
+        // cube_scale.z += .01;
+        // cube_translate.y += .009;
+        // cube_translate.x += .03;
         project_cube();
 
         for (int i = 0; i < t_cnt; i++)
@@ -516,11 +517,19 @@ void update_state()
             triangle_t triangle = triangles_to_render[i];
             for (int j = 0; j < 3; j++)
             {
+                //Commented out the rectangles because they look ugly - R.I.
                 // loop through every triangle then draw every vertex of every triangle
-                draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+                // draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
+                // draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
+                // draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
+                
+                //Cube middle
                 draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
+                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+
+                //Cube top left
+                draw_line(triangle.points[0].x + originX, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
                 draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
                 draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
             }

@@ -5,7 +5,8 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
-// #include <SDL2/SDL_mixer.h>
+//comment out for huda
+#include <SDL2/sdl_mixer.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -97,7 +98,13 @@ vec2_t triangle_c = {.x = 500, .y = 400}; // side c
 // basically just creating a vector 3 that can hold values of vec2_t's
 vec3_t_of_vec2_t lead_triangle = {.a = {.x = 0, .y = 0}, .b = {.x = 0, .y = 0}, .c = {.x = 0, .y = 0}};
 
-int act2_triangle_travel = 0;
+// Specific Act Movement Cues
+int act2_initial_travel = 0;
+int act2_vertical_movement = 0;
+int act2_horizontal_movement = 0;
+int act2_final_vertical_movement = 0;
+int act2_final_horizontal_movement = 0;
+int act2_triangle_leaves = 0;
 
 void update_state();
 
@@ -157,15 +164,16 @@ bool initialize_windowing_system()
         return false;
     }
 
-    // if(Mix_Init(0) != 0){
-    //     fprintf(stderr, "Mix_Init() Failed\n");
-    // }
-    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 128);
-    // Mix_Music* music = Mix_LoadMUS("audio/djo.wav");
-    // if(!music){
-    //     fprintf(stderr, "MUSIC NOT PLAYING!\n");
-    // }
-    // Mix_PlayMusic(music, 0);
+    //comment out for huda
+    if(Mix_Init(0) != 0){
+        fprintf(stderr, "Mix_Init() Failed\n");
+    }
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 128);
+    Mix_Music* music = Mix_LoadMUS("audio/djo.wav");
+    if(!music){
+        fprintf(stderr, "MUSIC NOT PLAYING!\n");
+    }
+    Mix_PlayMusic(music, 0);
 
     // the final will be 25 short answer questions
 
@@ -177,7 +185,8 @@ void clean_up_windowing_system()
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    // Mix_Quit();
+    //comment out for huda
+    Mix_Quit();
     SDL_Quit();
 }
 
@@ -561,27 +570,42 @@ void update_state()
         }
     }
 
-    if (elapsed_time >= 10.0f && elapsed_time < 11.0f)
+    if (elapsed_time >= 10.0f && elapsed_time < 10.5f)
     {
         draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
     }
 
-    if (elapsed_time >= 11.0f && elapsed_time < 12.0f)
+    if (elapsed_time >= 10.5f && elapsed_time < 11.0f)
     {
-        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x00008B);
+        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0081d0);
     }
 
-    if (elapsed_time >= 12.0f && elapsed_time < 13.0f)
+    if (elapsed_time >= 11.0f && elapsed_time < 11.5f)
     {
         draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
     }
 
-    if (elapsed_time >= 13.0f && elapsed_time < 14.0f)
+    if (elapsed_time >= 11.5f && elapsed_time < 12.0f)
     {
-        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x00008B);
+        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x00619d);
     }
 
-    if (elapsed_time >= 14.0f && elapsed_time < 15.0f)
+    if (elapsed_time >= 12.0f && elapsed_time < 12.5f)
+    {
+        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
+    }
+
+    if (elapsed_time >= 12.5f && elapsed_time < 13.0f)
+    {
+        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0081d0);
+    }
+
+    if (elapsed_time >= 13.0f && elapsed_time < 13.5f)
+    {
+        draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0091e9);
+    }
+
+    if (elapsed_time >= 13.5f && elapsed_time < 15.0f)
     {
         draw_rectangle((window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
     }
@@ -632,30 +656,30 @@ void update_state()
                 draw_line(triangle.points[2].x + originX - 25, triangle.points[2].y + originY, triangle.points[0].x + originX - 25, triangle.points[0].y + originY, 0xFFFFFF);
 
                 // Cube bottom right
-                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, 0xFFFFFF);
-                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, 0xFFFFFF);
-                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 150, triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 150, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 150, triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 150, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 150, triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 150, 0xFFFFFF);
 
                 // Cube bottom left
-                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, 0xFFFFFF);
-                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, 0xFFFFFF);
-                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 150, triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 150, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 150, triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 150, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 150, triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 150, 0xFFFFFF);
 
                 // Cube top left
-                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, 0xFFFFFF);
-                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, 0xFFFFFF);
-                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 200, triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 200, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 200, triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 200, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 200, triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 200, 0xFFFFFF);
 
                 // Cube top right
-                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, 0xFFFFFF);
-                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, 0xFFFFFF);
-                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 200, triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 200, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 200, triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 200, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 200, triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 200, 0xFFFFFF);
             }
         }
         t_cnt = 0;
     }
 
-    if (elapsed_time >= 20.0f && elapsed_time <= 22.0f)
+    if (elapsed_time >= 20.0f && elapsed_time <= 21.5f)
     {
         clear_color_buffer(0x000000);
         // makes sure progress is at 100
@@ -722,7 +746,7 @@ void update_state()
         }
         t_cnt = 0;
     }
-    if (elapsed_time >= 22.0f && elapsed_time <= 24.0f)
+    if (elapsed_time >= 21.5f && elapsed_time <= 24.0f)
     {
         clear_color_buffer(0xFFFFFF);
         // makes sure progress is at 100
@@ -864,42 +888,154 @@ void update_state()
         t_cnt = 0;
     }
 
-    // ---------------------------------ACT II: SCENE 1 - Introducing Cubes———————————————— //
+    // ---------------------------------ACT II: SCENE 1 - Square and Triangle Meet———————————————— //
 
-    if (elapsed_time >= 28.0f && elapsed_time <= 37.0f)
-    {
-        if (act2_triangle_travel <= 200)
+    if (elapsed_time >= 28.0f && elapsed_time <= 60.0f)
+    {   
+        //triangle and square meet eachother in the middle from the left and right, respectively
+        if (act2_initial_travel <= 200)
         {
-            act2_triangle_travel++;
+            act2_initial_travel++;
         }
         else
         {
             clear_color_buffer(0xffc0cb); // light pink
         }
-        draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
-        draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
+        draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y, 0xffea00);
+        draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
 
         if ((elapsed_time >= 33.0f && elapsed_time <= 33.5f) || (elapsed_time >= 35.0f && elapsed_time <= 35.5f))
         {
-            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xFFd500);
-            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y, 0xFFd500);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
         }
         else if ((elapsed_time >= 33.5f && elapsed_time <= 34.0f) || (elapsed_time >= 35.5f && elapsed_time <= 36.0f))
         {
-            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xFFC000);
-            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x50bdff);
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y, 0xFFC000);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x50bdff);
         }
         else if ((elapsed_time >= 34.0f && elapsed_time <= 34.5f) || (elapsed_time >= 36.0f && elapsed_time <= 36.5f))
         {
-            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
-            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y, 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x03a0ff);
         }
         else if ((elapsed_time >= 34.5f && elapsed_time <= 35.0f) || (elapsed_time >= 36.5f && elapsed_time <= 37.0f))
         {
-            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_triangle_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_triangle_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_triangle_travel), lead_triangle.c.y, 0xffea00);
-            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_triangle_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y, lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y, lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y, 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175, 150, 150, 0x0071b6);
         }
+
+        //triangle moves down, square moves up
+        if (elapsed_time >= 37.0f && elapsed_time <= 40.0f)
+        {
+            clear_color_buffer(0xffc0cb);
+            if (act2_vertical_movement <= 150)
+            {
+                act2_vertical_movement++;
+            }
+
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel), lead_triangle.a.y + (act2_vertical_movement), lead_triangle.b.x - 300 + (act2_initial_travel), lead_triangle.b.y + (act2_vertical_movement), lead_triangle.c.x - 300 + (act2_initial_travel), lead_triangle.c.y + (act2_vertical_movement), 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel), ((window_height - 300) / 4) + 175 - (act2_vertical_movement), 150, 150, 0x0071b6);
+        }
+
+
+        //triangle moves left, square moves right
+        if (elapsed_time >= 40.0f && elapsed_time <= 43.0f)
+        {
+            clear_color_buffer(0xffc0cb);
+            if (act2_horizontal_movement <= 200)
+            {
+                act2_horizontal_movement++;
+            }
+
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.a.y + (act2_vertical_movement), lead_triangle.b.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.b.y + (act2_vertical_movement), lead_triangle.c.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.c.y + (act2_vertical_movement), 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement), 150, 150, 0x0071b6);
+        }
+
+        //triangle moves up, square moves down
+        if (elapsed_time >= 43.0f && elapsed_time <= 46.0f)
+        {
+            clear_color_buffer(0xffc0cb);
+            if (act2_final_vertical_movement <= 150)
+            {
+                act2_final_vertical_movement++;
+            }
+
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.a.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.b.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.b.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.c.x - 300 + (act2_initial_travel) - (act2_horizontal_movement), lead_triangle.c.y + (act2_vertical_movement) - (act2_final_vertical_movement), 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0071b6);
+        }
+
+        //triangle moves right, square moves left, they meet in the middle
+        if (elapsed_time >= 46.0f && elapsed_time <= 49.0f)
+        {
+            clear_color_buffer(0xffc0cb);
+            if (act2_final_horizontal_movement <= 300)
+            {
+                act2_final_horizontal_movement++;
+            }
+
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement), lead_triangle.a.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.b.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement), lead_triangle.b.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.c.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement), lead_triangle.c.y + (act2_vertical_movement) - (act2_final_vertical_movement), 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0071b6);
+        }
+
+        //triangle leaves
+        //act2_triangle_leaves
+        if (elapsed_time >= 49.0f && elapsed_time <= 52.0f)
+        {
+            clear_color_buffer(0xffc0cb);
+            if (act2_triangle_leaves <= 200)
+            {
+                act2_triangle_leaves++;
+            }
+
+            draw_filled_triangle(lead_triangle.a.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement) - (act2_triangle_leaves), lead_triangle.a.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.b.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement) - (act2_triangle_leaves), lead_triangle.b.y + (act2_vertical_movement) - (act2_final_vertical_movement), lead_triangle.c.x - 300 + (act2_initial_travel) - (act2_horizontal_movement) + (act2_final_horizontal_movement) - (act2_triangle_leaves), lead_triangle.c.y + (act2_vertical_movement) - (act2_final_vertical_movement), 0xffea00);
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0071b6);
+        }
+        if (elapsed_time >= 52.0f && elapsed_time <= 60.0f){
+            clear_color_buffer(0x000067);
+            if (elapsed_time >= 54.0f && elapsed_time <= 56.0f){
+                clear_color_buffer(0x000080);
+                if (elapsed_time >= 55.0f && elapsed_time <= 56.0f){
+                    draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0071b6);
+                }
+
+            } else if (elapsed_time >= 56.0f && elapsed_time <= 57.0f){
+                clear_color_buffer(0x00009a);
+                if (elapsed_time >= 56.5f && elapsed_time <= 57.0f){
+                    draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0081cf);
+                }
+                
+            } else if (elapsed_time >= 57.0f && elapsed_time <= 58.0f){
+                clear_color_buffer(0x0000b3);
+                if (elapsed_time >= 57.5f && elapsed_time <= 58.0f){
+                    draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0091e9);
+                }
+                
+            } else if (elapsed_time >= 58.0f && elapsed_time <= 59.0f){
+                clear_color_buffer(0x0000b3);
+                if (elapsed_time >= 58.5f && elapsed_time <= 59.0f){
+                    draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x03a0ff);
+                }
+                
+            } else if (elapsed_time >= 59.0f && elapsed_time <= 60.0f){
+                clear_color_buffer(0x0000cd);
+                if (elapsed_time >= 59.5f && elapsed_time <= 60.0f){
+                    draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x1daaff);
+                }
+            }
+            draw_rectangle(((window_width - 300) / 4) + 500 - (act2_initial_travel) + (act2_horizontal_movement) - (act2_final_horizontal_movement), ((window_height - 300) / 4) + 175 - (act2_vertical_movement) + (act2_final_vertical_movement), 150, 150, 0x0071b6);
+        }
+
     }
+
+    // ---------------------------------ACT II: SCENE 3 - Cubes Disaproove———————————————— //
+
+    // ---------------------------------ACT III: SCENE 1 - Triangle Gives In———————————————— //
+
+    // ---------------------------------ACT III: SCENE 2 - Triangle in Cube Society———————————————— //
+
+    // ---------------------------------ACT III: SCENE 3 - You take the man out of the city———————————————— //
+
 }
 
 int main(void)

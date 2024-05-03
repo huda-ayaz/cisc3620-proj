@@ -25,6 +25,8 @@ uint32_t *color_buffer;
 bool is_running = false;
 int window_width = 800;
 int window_height = 600;
+int originX = 400;
+int originY = 300;
 void draw_pixel(int x, int y, uint32_t color);
 void draw_line(int x0, int y0, int x1, int y1, uint32_t color);
 void draw_rectangle(int start_x, int start_y, int rectangle_width, int rectangle_height, uint32_t color); // void draw_rectangle(uint32_t color, int rectangle_height, int rectangle_width, int start_y, int start_x);
@@ -444,18 +446,21 @@ void project_pyramid()
 
 void update_state()
 {
-    clear_color_buffer(0xC3B1E1); // black
+    clear_color_buffer(0xC3B1E1); // light purple
 
     Uint32 current_time = SDL_GetTicks();
     printf("Current SDL Ticks: %u\n", current_time);
 
     elapsed_time = (float)(current_time - animation_start_time) / 1000.0f; // Convert to seconds
+    
+    // ---------------------------------ACT I: SCENE 1 - Introducing Triangle———————————————— //
+    
     if (elapsed_time >= 0.0f && elapsed_time <= 1.0f)
     {
-        draw_filled_triangle(lead_triangle.a.x-200, lead_triangle.a.y, lead_triangle.b.x-200, lead_triangle.b.y, lead_triangle.c.x-200, lead_triangle.c.y, 0xffea00);//triangle on the left of the screen
-        draw_filled_triangle(lead_triangle.a.x+200, lead_triangle.a.y, lead_triangle.b.x+200, lead_triangle.b.y, lead_triangle.c.x+200, lead_triangle.c.y, 0xffea00);//triangle on the right of the screen
-        draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y-180, lead_triangle.b.x, lead_triangle.b.y-180, lead_triangle.c.x, lead_triangle.c.y-180, 0xffea00);//triangle on the top of the screen
-        draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y+180, lead_triangle.b.x, lead_triangle.b.y+180, lead_triangle.c.x, lead_triangle.c.y+180, 0xffea00);//triangle on the bottom of the screen
+        draw_filled_triangle(lead_triangle.a.x - 200, lead_triangle.a.y, lead_triangle.b.x - 200, lead_triangle.b.y, lead_triangle.c.x - 200, lead_triangle.c.y, 0xffea00); // triangle on the left of the screen
+        draw_filled_triangle(lead_triangle.a.x + 200, lead_triangle.a.y, lead_triangle.b.x + 200, lead_triangle.b.y, lead_triangle.c.x + 200, lead_triangle.c.y, 0xffea00); // triangle on the right of the screen
+        draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y - 180, lead_triangle.b.x, lead_triangle.b.y - 180, lead_triangle.c.x, lead_triangle.c.y - 180, 0xffea00); // triangle on the top of the screen
+        draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y + 180, lead_triangle.b.x, lead_triangle.b.y + 180, lead_triangle.c.x, lead_triangle.c.y + 180, 0xffea00); // triangle on the bottom of the screen
     }
     if (elapsed_time >= 1.0f && elapsed_time <= 6.0f)
     {
@@ -476,19 +481,24 @@ void update_state()
         else if ((elapsed_time >= 2.5f && elapsed_time <= 3.0f) || (elapsed_time >= 5.5f && elapsed_time <= 6.0f))
         {
             draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffd500);
-        } else if ((elapsed_time >= 3.0f && elapsed_time <= 3.5f) || (elapsed_time >= 6.5f && elapsed_time <= 7.0f))
+        }
+        else if ((elapsed_time >= 3.0f && elapsed_time <= 3.5f) || (elapsed_time >= 6.5f && elapsed_time <= 7.0f))
         {
             draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffc000);
-        } else if ((elapsed_time >= 3.5f && elapsed_time <= 4.0f) || (elapsed_time >= 7.5f && elapsed_time <= 8.0f))
+        }
+        else if ((elapsed_time >= 3.5f && elapsed_time <= 4.0f) || (elapsed_time >= 7.5f && elapsed_time <= 8.0f))
         {
             draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffd500);
-        } else if ((elapsed_time >= 8.0f && elapsed_time <= 10.0f))
+        }
+        else if ((elapsed_time >= 8.0f && elapsed_time <= 10.0f))
         {
             draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffea00);
         }
     }
 
-    if (elapsed_time >= 5.0f && elapsed_time <= 10.0f)
+    // ---------------------------------ACT I: SCENE 3 - Introducing Cubes———————————————— //
+
+    if (elapsed_time >= 15.0f && elapsed_time <= 20.0f)
     {
         // makes sure progress is at 100
         // float progress = elapsed_time / animation_duration;
@@ -501,10 +511,16 @@ void update_state()
         translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
 
         cube_rotation.x += .01;
-        // cube_rotation.y += .01;
+        cube_rotation.y += .01;
         // cube_rotation.z += .01;
 
-        cube_scale.x = 1;
+        if(elapsed_time >= 15.0f && elapsed_time <= 17.5f){
+            cube_scale.x += .01;
+            cube_scale.y += .01;
+        } else if (elapsed_time >= 17.5f && elapsed_time <= 20.0f) {
+            cube_scale.x -= .01;
+            cube_scale.y -= .01;
+        }
         // cube_scale.x += .01;
         // cube_scale.y += .01;
         // cube_scale.z += .01;
@@ -517,26 +533,166 @@ void update_state()
             triangle_t triangle = triangles_to_render[i];
             for (int j = 0; j < 3; j++)
             {
-                //Commented out the rectangles because they look ugly - R.I.
-                // loop through every triangle then draw every vertex of every triangle
-                // draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-                // draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-                // draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
-                
-                //Cube middle
-                draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+                // Cube middle
+                draw_line(triangle.points[0].x + originX - 25, triangle.points[0].y + originY, triangle.points[1].x + originX - 25, triangle.points[1].y + originY, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 25, triangle.points[1].y + originY, triangle.points[2].x + originX - 25, triangle.points[2].y + originY, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 25, triangle.points[2].y + originY, triangle.points[0].x + originX - 25, triangle.points[0].y + originY, 0xFFFFFF);
 
-                //Cube top left
-                draw_line(triangle.points[0].x + originX, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
+                // Cube bottom right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, 0xFFFFFF);
+
+                // Cube bottom left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, 0xFFFFFF);
+
+                // Cube top left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, 0xFFFFFF);
+
+                // Cube top right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, 0xFFFFFF);
             }
         }
         t_cnt = 0;
     }
-    if (elapsed_time >= 11.0f && elapsed_time <= 16.0f)
+    
+    if (elapsed_time >= 20.0f && elapsed_time <= 22.0f)
+    {
+        clear_color_buffer(0x000000);
+        // makes sure progress is at 100
+        // float progress = elapsed_time / animation_duration;
+
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); // pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
+        translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
+
+        cube_rotation.x += .01;
+        cube_rotation.y += .01;
+        // cube_rotation.z += .01;
+
+        if(elapsed_time >= 15.0f && elapsed_time <= 17.5f){
+            cube_scale.x += .01;
+            cube_scale.y += .01;
+        } else if (elapsed_time >= 17.5f && elapsed_time <= 20.0f) {
+            cube_scale.x -= .01;
+            cube_scale.y -= .01;
+        }
+        // cube_scale.x += .01;
+        // cube_scale.y += .01;
+        // cube_scale.z += .01;
+        // cube_translate.y += .009;
+        // cube_translate.x += .03;
+        project_cube();
+
+        for (int i = 0; i < t_cnt; i++)
+        {
+            triangle_t triangle = triangles_to_render[i];
+            for (int j = 0; j < 3; j++)
+            {
+                // Cube middle
+                draw_line(triangle.points[0].x + originX - 25, triangle.points[0].y + originY, triangle.points[1].x + originX - 25, triangle.points[1].y + originY, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 25, triangle.points[1].y + originY, triangle.points[2].x + originX - 25, triangle.points[2].y + originY, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 25, triangle.points[2].y + originY, triangle.points[0].x + originX - 25, triangle.points[0].y + originY, 0xFFFFFF);
+
+                // Cube bottom right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, 0xFFFFFF);
+
+                // Cube bottom left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, 0xFFFFFF);
+
+                // Cube top left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, 0xFFFFFF);
+
+                // Cube top right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, 0xFFFFFF);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, 0xFFFFFF);
+            }
+        }
+        t_cnt = 0;
+    }
+    if (elapsed_time >= 22.0f && elapsed_time <= 24.0f)
+    {
+        clear_color_buffer(0xFFFFFF);
+        // makes sure progress is at 100
+        // float progress = elapsed_time / animation_duration;
+
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); // pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
+        translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
+
+        cube_rotation.x += .01;
+        cube_rotation.y += .01;
+        // cube_rotation.z += .01;
+
+        if(elapsed_time >= 15.0f && elapsed_time <= 17.5f){
+            cube_scale.x += .01;
+            cube_scale.y += .01;
+        } else if (elapsed_time >= 17.5f && elapsed_time <= 20.0f) {
+            cube_scale.x -= .01;
+            cube_scale.y -= .01;
+        }
+        // cube_scale.x += .01;
+        // cube_scale.y += .01;
+        // cube_scale.z += .01;
+        // cube_translate.y += .009;
+        // cube_translate.x += .03;
+        project_cube();
+
+        for (int i = 0; i < t_cnt; i++)
+        {
+            triangle_t triangle = triangles_to_render[i];
+            for (int j = 0; j < 3; j++)
+            {
+                // Cube middle
+                draw_line(triangle.points[0].x + originX - 25, triangle.points[0].y + originY, triangle.points[1].x + originX - 25, triangle.points[1].y + originY, 0x000000);
+                draw_line(triangle.points[1].x + originX - 25, triangle.points[1].y + originY, triangle.points[2].x + originX - 25, triangle.points[2].y + originY, 0x000000);
+                draw_line(triangle.points[2].x + originX - 25, triangle.points[2].y + originY, triangle.points[0].x + originX - 25, triangle.points[0].y + originY, 0x000000);
+
+                // Cube bottom right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, 0x000000);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY + 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, 0x000000);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY + 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY + 180, 0x000000);
+
+                // Cube bottom left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, 0x000000);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY + 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, 0x000000);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY + 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY + 180, 0x000000);
+
+                // Cube top left
+                draw_line(triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, 0x000000);
+                draw_line(triangle.points[1].x + originX - 250, triangle.points[1].y + originY - 180, triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, 0x000000);
+                draw_line(triangle.points[2].x + originX - 250, triangle.points[2].y + originY - 180, triangle.points[0].x + originX - 250, triangle.points[0].y + originY - 180, 0x000000);
+
+                // Cube top right
+                draw_line(triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, 0x000000);
+                draw_line(triangle.points[1].x + originX + 200, triangle.points[1].y + originY - 180, triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, 0x000000);
+                draw_line(triangle.points[2].x + originX + 200, triangle.points[2].y + originY - 180, triangle.points[0].x + originX + 200, triangle.points[0].y + originY - 180, 0x000000);
+            }
+        }
+        t_cnt = 0;
+    }
+
+
+    if (elapsed_time >= 25.0f && elapsed_time <= 26.0f)
     {
         // matrix incorporation
         scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);
@@ -573,7 +729,7 @@ void update_state()
         t_cnt = 0;
     }
 
-    if (elapsed_time >= 17.0f && elapsed_time <= 21.0f)
+    if (elapsed_time >= 26.0f && elapsed_time <= 28.0f)
     {
         // matrix incorporation
         scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);

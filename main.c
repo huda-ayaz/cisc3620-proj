@@ -29,6 +29,8 @@ int window_height = 600;
 void draw_pixel(int x, int y, uint32_t color);
 void draw_line(int x0, int y0, int x1, int y1, uint32_t color);
 void draw_rectangle(int start_x, int start_y, int rectangle_width, int rectangle_height, uint32_t color); // void draw_rectangle(uint32_t color, int rectangle_height, int rectangle_width, int start_y, int start_x);
+void draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, uint32_t color);
+void draw_filled_triangle(int x1, int y1, int x2, int y2, int x3, int y3, uint32_t color);
 bool initialize_windowing_system();
 void clean_up_windowing_system();
 // void project_model();
@@ -87,6 +89,13 @@ float elapsed_time = 0.0f;
 // mat4_t world_matrix;
 
 // void initialize_matrices();
+
+//setting up the parameters for main triangle character
+    vec2_t triangle_a = {.x = 300, .y = 400}; //side a
+    vec2_t triangle_b = {.x = 400, .y = 200}; //side b
+    vec2_t triangle_c = {.x = 500, .y = 400}; //side c
+    //basically just creating a vector 3 that can hold values of vec2_t's
+    vec3_t_of_vec2_t lead_triangle = { .a = {.x=0,.y=0}, .b= {.x=0,.y=0}, .c= {.x=0,.y=0}};
 
 void update_state();
 //vvvvvvvvvvvv BASIC SETUP FILES vvvvvvvvvvvv//
@@ -180,6 +189,22 @@ void draw_rectangle (int start_x, int start_y, int rectangle_width, int rectangl
 			//color_buffer[(y*window_width)+x] = color;
             draw_pixel(x, y, color);
 		}
+    }
+}
+
+void draw_triangle(int x1, int y1, int x2, int y2, int x3, int y3, uint32_t color){
+    draw_line(x1,y1,x2,y2,color);
+    draw_line(x2,y3,x3,y3,color);
+    draw_line(x3,y3,x1,y1,color);
+}
+
+// Note: Only works for triangles where the base is perpendicular to the height.
+void draw_filled_triangle(int x1, int y1, int x2, int y2, int x3, int y3, uint32_t color) {
+    int base = x3-x1;
+    // int height = y2-y1;
+    // int center_of_triangle = height/2;
+    for(int i = 0; i < base; i++){
+        draw_triangle(x1+i,y1,x2,y2,x3-i,y3, color);
     }
 }
 
@@ -394,6 +419,12 @@ void update_state() {
     printf("Current SDL Ticks: %u\n", current_time);
 
     elapsed_time = (float)(current_time - animation_start_time) / 1000.0f; // Convert to seconds
+     if (elapsed_time >= 1.0f &&  elapsed_time <= 10.0f) {
+        //Yellow triangle pops up on the first beat
+        clear_color_buffer(0xfff3f5);
+        draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffea00);
+    }
+    
     if (elapsed_time >= 5.0f &&  elapsed_time <= 10.0f) {
         //makes sure progress is at 100
         //float progress = elapsed_time / animation_duration;
@@ -511,6 +542,11 @@ int main(void) {
     SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN); // set to full screen upon running
 
     animation_start_time = SDL_GetTicks();
+
+    //initializing lead_triangle here
+    lead_triangle.a= triangle_a;
+    lead_triangle.b= triangle_b;
+    lead_triangle.c= triangle_c;
 
     while (is_running) {
         process_keyboard_input();

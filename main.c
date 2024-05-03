@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
-#include <SDL2/sdl_mixer.h>
+// #include <SDL2/SDL_mixer.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -36,8 +36,8 @@ void draw_filled_triangle(int x1, int y1, int x2, int y2, int x3, int y3, uint32
 bool initialize_windowing_system();
 void clean_up_windowing_system();
 // void project_model();
-void project_cube();
-void project_pyramid();
+void project_cube(uint32_t color);
+void project_pyramid(uint32_t color);
 
 int scaling_factor = 500;
 int previous_frame_time = 0;
@@ -149,15 +149,15 @@ bool initialize_windowing_system() {
         return false;
     }
 
-    if(Mix_Init(0) != 0){
-        fprintf(stderr, "Mix_Init() Failed\n");
-    }
-    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 128);
-    Mix_Music* music = Mix_LoadMUS("audio/djo.wav");
-    if(!music){
-        fprintf(stderr, "MUSIC NOT PLAYING!\n");
-    }
-    Mix_PlayMusic(music, 0);
+    // if(Mix_Init(0) != 0){
+    //     fprintf(stderr, "Mix_Init() Failed\n");
+    // }
+    // Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 128);
+    // Mix_Music* music = Mix_LoadMUS("audio/djo.wav");
+    // if(!music){
+    //     fprintf(stderr, "MUSIC NOT PLAYING!\n");
+    // }
+    // Mix_PlayMusic(music, 0);
 
     //the final will be 25 short answer questions
     
@@ -168,7 +168,7 @@ void clean_up_windowing_system() {
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    Mix_Quit();
+    // Mix_Quit();
     SDL_Quit();
 }
 
@@ -253,7 +253,7 @@ void draw_line(int x0, int y0, int x1, int y1, uint32_t color) {
 
 //vvvvvvvvvvvvvvvvvvvvvv DISPLAY vvvvvvvvvvvvvvvvvvvvvv//
 
-void project_cube() {
+void project_cube(uint32_t color) {
     // world_matrix = mat4_identity();
 
     // CUBE PROJECT MODEL
@@ -350,10 +350,24 @@ void project_cube() {
         }
         //save the projected triangle
         triangles_to_render[t_cnt++] = projected_triangle;
+
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i]; 
+            for (int j = 0; j < 3; j++) {
+                // loop through every triangle then draw every vertex of every triangle
+                draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, color);
+                draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, color);
+                draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, color);
+                draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, color);
+                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, color);
+                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, color);
+            }
+        }
+        t_cnt = 0;
     }
 }
 
-void project_pyramid() {
+void project_pyramid(uint32_t color) {
     // PYRAMID PROJECT MODEL
     for (int i = 0; i < P_MESH_FACES; i++) { // for each triangle
         face_t p_mesh_face = p_mesh_faces[i]; 
@@ -412,12 +426,26 @@ void project_pyramid() {
         //save the projected triangle
         triangles_to_render[t_cnt++] = projected_triangle;
     }
+
+    for (int i = 0; i < t_cnt; i++) {
+        triangle_t triangle = triangles_to_render[i]; 
+        for (int j = 0; j < 3; j++) {
+            // loop through every triangle then draw every vertex of every triangle
+            draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, color);
+            draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, color);
+            draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, color);
+            draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, color);
+            draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, color);
+            draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, color);
+        }
+    }
+    t_cnt = 0;
 }
 
 //^^^^^^^^^^^^ 3D MESH ^^^^^^^^^^^^//
 
 void update_state() {
-	clear_color_buffer(0x000000); // black
+	clear_color_buffer(0xC3B1E1); // pastel purple
 
     Uint32 current_time = SDL_GetTicks();
     printf("Current SDL Ticks: %u\n", current_time);
@@ -429,7 +457,60 @@ void update_state() {
         draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffea00);
     }
 
-    if (elapsed_time >= 5.0f &&  elapsed_time <= 10.0f) {
+
+    // ---------------------------------ACT I: SCENE 2 - Introducing Square--------------------------------- //
+    // Pop in grid of blue squares
+    if (elapsed_time >= 6.0f && elapsed_time <= 10.0f) {
+        uint32_t color = 0x0071b6; // pastel blue
+
+        int rows = 4;
+        int columns = 6;
+
+        int square_size = window_width / (columns + 1);
+        int spacing = square_size / 5;
+
+        int total_width = columns * (square_size + spacing);
+        int total_height = rows * (square_size + spacing) + 20;
+
+        int start_x = (window_width - total_width) + 20;
+        int start_y = (window_height - total_height);
+
+        float pop_wait = 4.0f / (rows * columns);
+
+        int current_square = (int)( (elapsed_time - 6.0f) / pop_wait);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if ((i * columns + j) <= current_square) {
+                    int x = start_x + j * (square_size + spacing);
+                    int y = start_y + i * (square_size + spacing);
+                    draw_rectangle(x, y, square_size, square_size, color);
+                }
+            }
+        }
+    }
+
+    if (elapsed_time >= 10.0f && elapsed_time < 11.0f) {
+        draw_rectangle( (window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
+    }
+
+    if (elapsed_time >= 11.0f && elapsed_time < 12.0f) {
+        draw_rectangle( (window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x00008B);
+    }
+
+    if (elapsed_time >= 12.0f && elapsed_time < 13.0f) {
+        draw_rectangle( (window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
+    }
+
+    if (elapsed_time >= 13.0f && elapsed_time < 14.0f) {
+        draw_rectangle( (window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x00008B);
+    }
+
+    if (elapsed_time >= 14.0f && elapsed_time < 15.0f) {
+        draw_rectangle( (window_width - 300) / 2, (window_height - 300) / 2, 300, 300, 0x0071b6);
+    }
+
+    if (elapsed_time >= 20.0f &&  elapsed_time < 25.0f) {
         //makes sure progress is at 100
         //float progress = elapsed_time / animation_duration;
 
@@ -450,24 +531,9 @@ void update_state() {
         cube_scale.z += .01;
         cube_translate.y += .009;
         cube_translate.x += .03 ;
-        project_cube();
-
-        
-        for (int i = 0; i < t_cnt; i++) {
-            triangle_t triangle = triangles_to_render[i]; 
-            for (int j = 0; j < 3; j++) {
-                // loop through every triangle then draw every vertex of every triangle
-                draw_rectangle(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_line(triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[1].x + window_width / 2, triangle.points[1].y + window_height / 2, triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[2].x + window_width / 2, triangle.points[2].y + window_height / 2, triangle.points[0].x + window_width / 2, triangle.points[0].y + window_height / 2, 0xFFFFFF);
-            }
-        }
-        t_cnt = 0;
+        project_cube(0x0071b6);
     }
-    if (elapsed_time >= 11.0f && elapsed_time <= 16.0f) {
+    if (elapsed_time >= 20.0f && elapsed_time < 25.0f) {
         // matrix incorporation
         scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);
         rotation_matrix_x = mat4_make_rotation_x(p_rotation.x); //pass the angle as float
@@ -486,25 +552,10 @@ void update_state() {
         p_translate.y += .009;
         p_translate.x += .03 ;
 
-        project_pyramid();
-        for (int i = 0; i < t_cnt; i++) {
-            triangle_t triangle = triangles_to_render[i]; 
-            for (int j = 0; j < 3; j++) {
-                // loop through every triangle then draw every vertex of every triangle
-                draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, 0xFFFFFF);
-            }
-        }
-        t_cnt = 0;
-
-        
+        project_pyramid(0xFDFD96);        
     }
 
-        if (elapsed_time >= 17.0f && elapsed_time <= 21.0f) {
+    if (elapsed_time >= 25.0f && elapsed_time < 30.0f) {
         // matrix incorporation
         scale_matrix = mat4_make_scale(p_scale.x, p_scale.y, p_scale.z);
         rotation_matrix_x = mat4_make_rotation_x(p_rotation.x); //pass the angle as float
@@ -523,20 +574,7 @@ void update_state() {
         p_translate.y -= .009;
         p_translate.x -= .03 ;
 
-        project_pyramid();
-        for (int i = 0; i < t_cnt; i++) {
-            triangle_t triangle = triangles_to_render[i]; 
-            for (int j = 0; j < 3; j++) {
-                // loop through every triangle then draw every vertex of every triangle
-                draw_rectangle(triangle.points[0].x, triangle.points[0].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[1].x, triangle.points[1].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_rectangle(triangle.points[2].x, triangle.points[2].y + window_height / 2, 5, 5, 0xFFFFFF);
-                draw_line(triangle.points[0].x, triangle.points[0].y + window_height / 2, triangle.points[1].x, triangle.points[1].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[1].x, triangle.points[1].y + window_height / 2, triangle.points[2].x, triangle.points[2].y + window_height / 2, 0xFFFFFF);
-                draw_line(triangle.points[2].x, triangle.points[2].y + window_height / 2, triangle.points[0].x, triangle.points[0].y + window_height / 2, 0xFFFFFF);
-            }
-        }
-        t_cnt = 0;
+        project_pyramid(0xFFFFFF);
     }
 }
 

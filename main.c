@@ -1030,7 +1030,168 @@ void update_state()
 
     // ---------------------------------ACT II: SCENE 3 - Cubes Disaproove———————————————— //
 
+    if (elapsed_time >= 60.0f && elapsed_time < 75.0f) {
+        clear_color_buffer(0x7c0200);
+         // 15.0f s total
+        // Scared triangle :(
+        if ((elapsed_time >= 60.0f && elapsed_time < 63.0f) || (elapsed_time >= 66.0f && elapsed_time < 69.0f) || (elapsed_time >= 72.0f && elapsed_time < 75.0f))
+        {
+            draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffea00);
+        }
+        else if ((elapsed_time >= 63.0f && elapsed_time < 66.0f) || (elapsed_time >= 69.0f && elapsed_time < 72.0f))
+        {
+            draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0xffd500);
+        }
+
+        // LEFT CUBES
+
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); // pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
+        translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
+
+        cube_rotation.x += .01;
+        cube_rotation.y += .01;
+        // cube_rotation.z += .01;
+
+        if ((elapsed_time >= 60.0f && elapsed_time < 63.0f) || (elapsed_time >= 66.0f && elapsed_time < 69.0f) || (elapsed_time >= 72.0f && elapsed_time < 75.0f))
+        {
+            // draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0x000000);
+            cube_scale.x += .006;
+            cube_scale.y += .006;
+            cube_scale.z += .006;
+        }
+        else if ((elapsed_time >= 63.0f && elapsed_time < 66.0f) || (elapsed_time >= 69.0f && elapsed_time < 72.0f))
+        {
+            // draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y, lead_triangle.b.x, lead_triangle.b.y, lead_triangle.c.x, lead_triangle.c.y, 0x000000);
+            cube_scale.x -= .006;
+            cube_scale.y -= .006;
+            cube_scale.z -= .006;
+        }
+        // cube_scale.x += .01;
+        // cube_scale.y += .01;
+        // cube_scale.z += .01;
+        // cube_translate.y += .009;
+        cube_translate.x += .005;
+        project_cube();
+
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i];
+            for (int j = 0; j < 3; j++) {
+                 // Cube top 
+                draw_line(triangle.points[0].x + originX - 220, triangle.points[0].y + originY - 200, triangle.points[1].x + originX - 220, triangle.points[1].y + originY - 200, 0x000000);
+                draw_line(triangle.points[1].x + originX - 220, triangle.points[1].y + originY - 200, triangle.points[2].x + originX - 220, triangle.points[2].y + originY - 200, 0x000000);
+                draw_line(triangle.points[2].x + originX - 220, triangle.points[2].y + originY - 200, triangle.points[0].x + originX - 220, triangle.points[0].y + originY - 200, 0x000000);
+
+                // Cube bottom
+                draw_line(triangle.points[0].x + originX - 220, triangle.points[0].y + originY + 110, triangle.points[1].x + originX - 220, triangle.points[1].y + originY + 110, 0x000000);
+                draw_line(triangle.points[1].x + originX - 220, triangle.points[1].y + originY + 110, triangle.points[2].x + originX - 220, triangle.points[2].y + originY + 110, 0x000000);
+                draw_line(triangle.points[2].x + originX - 220, triangle.points[2].y + originY + 110, triangle.points[0].x + originX - 220, triangle.points[0].y + originY + 110, 0x000000);
+            }
+        }
+        t_cnt = 0;
+        // RIGHT CUBES
+
+        // matrix incorporation
+        scale_matrix = mat4_make_scale(cube_scale.x, cube_scale.y, cube_scale.z);
+        rotation_matrix_x = mat4_make_rotation_x(cube_rotation.x); // pass the angle as float
+        rotation_matrix_y = mat4_make_rotation_y(cube_rotation.y);
+        rotation_matrix_z = mat4_make_rotation_z(cube_rotation.z);
+        translate_matrix = mat4_make_translate(cube_translate.x, cube_translate.y, cube_translate.z);
+
+        cube_rotation.x += .01;
+        cube_rotation.y += .01;
+        // cube_rotation.z += .01;
+
+        if ((elapsed_time >= 60.0f && elapsed_time < 63.0f) || (elapsed_time >= 66.0f && elapsed_time < 69.0f) || (elapsed_time >= 72.0f && elapsed_time < 75.0f))
+        {
+            cube_scale.x += .006;
+            cube_scale.y += .006;
+            cube_scale.z += .006;
+        }
+        else if ((elapsed_time >= 63.0f && elapsed_time < 66.0f) || (elapsed_time >= 69.0f && elapsed_time < 72.0f))
+        {
+            cube_scale.x -= .006;
+            cube_scale.y -= .006;
+            cube_scale.z -= .006;
+        }
+        // cube_scale.x += .01;
+        // cube_scale.y += .01;
+        // cube_scale.z += .01;
+        // cube_translate.y += .009;
+        cube_translate.x -= .005;
+        project_cube();
+
+        for (int i = 0; i < t_cnt; i++) {
+            triangle_t triangle = triangles_to_render[i];
+            for (int j = 0; j < 3; j++) {
+                // Cube top 
+                draw_line(triangle.points[0].x + originX + 180, triangle.points[0].y + originY - 200, triangle.points[1].x + originX + 180, triangle.points[1].y + originY - 200, 0x000000);
+                draw_line(triangle.points[1].x + originX + 180, triangle.points[1].y + originY - 200, triangle.points[2].x + originX + 180, triangle.points[2].y + originY - 200, 0x000000);
+                draw_line(triangle.points[2].x + originX + 180, triangle.points[2].y + originY - 200, triangle.points[0].x + originX + 180, triangle.points[0].y + originY - 200, 0x000000);
+                
+                // Cube bottom
+                draw_line(triangle.points[0].x + originX + 180, triangle.points[0].y + originY + 110, triangle.points[1].x + originX + 180, triangle.points[1].y + originY + 110, 0x000000);
+                draw_line(triangle.points[1].x + originX + 180, triangle.points[1].y + originY + 110, triangle.points[2].x + originX + 180, triangle.points[2].y + originY + 110, 0x000000);
+                draw_line(triangle.points[2].x + originX + 180, triangle.points[2].y + originY + 110, triangle.points[0].x + originX + 180, triangle.points[0].y + originY + 110, 0x000000);
+            }
+        }
+        t_cnt = 0;
+    }
+
+
     // ---------------------------------ACT III: SCENE 1 - Triangle Gives In———————————————— //
+
+    if (elapsed_time >= 75.0f && elapsed_time <= 90.0f){
+        if(elapsed_time >= 75.0f && elapsed_time <= 80){
+            if(elapsed_time >= 75.0f && elapsed_time <= 75.5f){
+                //spawn
+                draw_filled_triangle(lead_triangle.a.x - 500, lead_triangle.a.y + 200, lead_triangle.b.x - 500, lead_triangle.b.y + 200, lead_triangle.c.x - 500, lead_triangle.c.y + 200, 0xffea00); // triangle on the bottom left of the screen
+            }
+            if(elapsed_time >= 75.5f && elapsed_time <= 76.0f){
+                //spawn
+                draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y + 200, lead_triangle.b.x, lead_triangle.b.y + 200, lead_triangle.c.x, lead_triangle.c.y + 200, 0xffea00); // triangle on the bottom middle of the screen
+            }
+            if(elapsed_time >= 76.0f && elapsed_time <= 76.5f){
+                //spawn
+                draw_filled_triangle(lead_triangle.a.x + 500, lead_triangle.a.y + 200, lead_triangle.b.x + 500, lead_triangle.b.y + 200, lead_triangle.c.x + 500, lead_triangle.c.y + 200, 0xffea00); // triangle on the bottom middle of the screen
+            }
+            if(elapsed_time >= 76.5f && elapsed_time <= 77.0f){
+                //spawn
+                draw_filled_triangle(lead_triangle.a.x + 500, lead_triangle.a.y - 200, lead_triangle.b.x + 500, lead_triangle.b.y - 200, lead_triangle.c.x + 500, lead_triangle.c.y - 200, 0xffea00); // triangle on the bottom middle of the screen
+            }
+            if(elapsed_time >= 77.0f && elapsed_time <= 77.5f){
+                //spawn
+                draw_filled_triangle(lead_triangle.a.x, lead_triangle.a.y - 200, lead_triangle.b.x, lead_triangle.b.y - 200, lead_triangle.c.x, lead_triangle.c.y - 200, 0xffea00); // triangle on the bottom middle of the screen
+            }
+            if(elapsed_time >= 77.5f && elapsed_time <= 78.0f){
+                //spawn
+            }
+            if(elapsed_time >= 78.0f && elapsed_time <= 79.0f){
+                //flicker
+                if(elapsed_time >= 78.0f && elapsed_time <= 78.5f){
+                } else if(elapsed_time >= 78.5f && elapsed_time <= 79.0f){
+                    //flicker
+                }
+            }
+            if(elapsed_time >= 79.0f && elapsed_time <= 80.0f){
+                //flicker
+                if(elapsed_time >= 79.0f && elapsed_time <= 79.5f){
+                } else if(elapsed_time >= 79.5f && elapsed_time <= 80.0f){
+                    //flicker
+                }
+            }
+
+        } else if(elapsed_time >= 80.0f && elapsed_time <= 85.0f){
+            if(elapsed_time >= 75.0f && elapsed_time <= 80){
+            }
+        } else if(elapsed_time >= 85.0f && elapsed_time <= 90.0f){
+            if(elapsed_time >= 75.0f && elapsed_time <= 80){
+            }
+        }
+    }
 
     // ---------------------------------ACT III: SCENE 2 - Triangle in Cube Society———————————————— //
 

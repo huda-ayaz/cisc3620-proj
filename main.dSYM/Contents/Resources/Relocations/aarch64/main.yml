@@ -2,91 +2,91 @@
 triple:          'arm64-apple-darwin'
 binary-path:     main
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _run_render_pipeline, symObjAddr: 0x0, symBinAddr: 0x10000312C, symSize: 0x90 }
-  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _is_running, symObjAddr: 0x14C64, symBinAddr: 0x1000101D8, symSize: 0x0 }
-  - { offsetInCU: 0x5B, offset: 0x5B, size: 0x8, addend: 0x0, symName: _window_width, symObjAddr: 0x81A8, symBinAddr: 0x100010000, symSize: 0x0 }
-  - { offsetInCU: 0x77, offset: 0x77, size: 0x8, addend: 0x0, symName: _window_height, symObjAddr: 0x81AC, symBinAddr: 0x100010004, symSize: 0x0 }
-  - { offsetInCU: 0x8C, offset: 0x8C, size: 0x8, addend: 0x0, symName: _originX, symObjAddr: 0x81B0, symBinAddr: 0x100010008, symSize: 0x0 }
-  - { offsetInCU: 0xA1, offset: 0xA1, size: 0x8, addend: 0x0, symName: _originY, symObjAddr: 0x81B4, symBinAddr: 0x10001000C, symSize: 0x0 }
-  - { offsetInCU: 0xB6, offset: 0xB6, size: 0x8, addend: 0x0, symName: _scaling_factor, symObjAddr: 0x81B8, symBinAddr: 0x100010010, symSize: 0x0 }
-  - { offsetInCU: 0xCB, offset: 0xCB, size: 0x8, addend: 0x0, symName: _previous_frame_time, symObjAddr: 0x14C68, symBinAddr: 0x1000101DC, symSize: 0x0 }
-  - { offsetInCU: 0xE0, offset: 0xE0, size: 0x8, addend: 0x0, symName: _camera_position, symObjAddr: 0x81BC, symBinAddr: 0x100010014, symSize: 0x0 }
-  - { offsetInCU: 0x130, offset: 0x130, size: 0x8, addend: 0x0, symName: _t_cnt, symObjAddr: 0x14C6C, symBinAddr: 0x1000101E0, symSize: 0x0 }
-  - { offsetInCU: 0x145, offset: 0x145, size: 0x8, addend: 0x0, symName: _cube_scale, symObjAddr: 0x81C8, symBinAddr: 0x100010020, symSize: 0x0 }
-  - { offsetInCU: 0x15A, offset: 0x15A, size: 0x8, addend: 0x0, symName: _cube_rotation, symObjAddr: 0x14C70, symBinAddr: 0x1000101E4, symSize: 0x0 }
-  - { offsetInCU: 0x16F, offset: 0x16F, size: 0x8, addend: 0x0, symName: _cube_translate, symObjAddr: 0x81D4, symBinAddr: 0x10001002C, symSize: 0x0 }
-  - { offsetInCU: 0x184, offset: 0x184, size: 0x8, addend: 0x0, symName: _p_scale, symObjAddr: 0x81E0, symBinAddr: 0x100010038, symSize: 0x0 }
-  - { offsetInCU: 0x199, offset: 0x199, size: 0x8, addend: 0x0, symName: _p_rotation, symObjAddr: 0x14C7C, symBinAddr: 0x1000101F0, symSize: 0x0 }
-  - { offsetInCU: 0x1AE, offset: 0x1AE, size: 0x8, addend: 0x0, symName: _p_translate, symObjAddr: 0x81EC, symBinAddr: 0x100010044, symSize: 0x0 }
-  - { offsetInCU: 0x1C3, offset: 0x1C3, size: 0x8, addend: 0x0, symName: _animation_start_time, symObjAddr: 0x14C88, symBinAddr: 0x1000101FC, symSize: 0x0 }
-  - { offsetInCU: 0x1F5, offset: 0x1F5, size: 0x8, addend: 0x0, symName: _animation_duration, symObjAddr: 0x81F8, symBinAddr: 0x100010050, symSize: 0x0 }
-  - { offsetInCU: 0x20A, offset: 0x20A, size: 0x8, addend: 0x0, symName: _elapsed_time, symObjAddr: 0x14C8C, symBinAddr: 0x100010200, symSize: 0x0 }
-  - { offsetInCU: 0x21F, offset: 0x21F, size: 0x8, addend: 0x0, symName: _triangle_a, symObjAddr: 0x81FC, symBinAddr: 0x100010054, symSize: 0x0 }
-  - { offsetInCU: 0x25C, offset: 0x25C, size: 0x8, addend: 0x0, symName: _triangle_b, symObjAddr: 0x8204, symBinAddr: 0x10001005C, symSize: 0x0 }
-  - { offsetInCU: 0x271, offset: 0x271, size: 0x8, addend: 0x0, symName: _triangle_c, symObjAddr: 0x820C, symBinAddr: 0x100010064, symSize: 0x0 }
-  - { offsetInCU: 0x286, offset: 0x286, size: 0x8, addend: 0x0, symName: _lead_triangle, symObjAddr: 0x14C90, symBinAddr: 0x100010204, symSize: 0x0 }
-  - { offsetInCU: 0x2CF, offset: 0x2CF, size: 0x8, addend: 0x0, symName: _act2_initial_travel, symObjAddr: 0x14CA8, symBinAddr: 0x10001021C, symSize: 0x0 }
-  - { offsetInCU: 0x2E4, offset: 0x2E4, size: 0x8, addend: 0x0, symName: _act2_vertical_movement, symObjAddr: 0x14CAC, symBinAddr: 0x100010220, symSize: 0x0 }
-  - { offsetInCU: 0x2F9, offset: 0x2F9, size: 0x8, addend: 0x0, symName: _act2_horizontal_movement, symObjAddr: 0x14CB0, symBinAddr: 0x100010224, symSize: 0x0 }
-  - { offsetInCU: 0x30E, offset: 0x30E, size: 0x8, addend: 0x0, symName: _act2_final_vertical_movement, symObjAddr: 0x14CB4, symBinAddr: 0x100010228, symSize: 0x0 }
-  - { offsetInCU: 0x323, offset: 0x323, size: 0x8, addend: 0x0, symName: _act2_final_horizontal_movement, symObjAddr: 0x14CB8, symBinAddr: 0x10001022C, symSize: 0x0 }
-  - { offsetInCU: 0x338, offset: 0x338, size: 0x8, addend: 0x0, symName: _act2_triangle_leaves, symObjAddr: 0x14CBC, symBinAddr: 0x100010230, symSize: 0x0 }
-  - { offsetInCU: 0x35B, offset: 0x35B, size: 0x8, addend: 0x0, symName: _renderer, symBinAddr: 0x100016000, symSize: 0x0 }
-  - { offsetInCU: 0x385, offset: 0x385, size: 0x8, addend: 0x0, symName: _window, symBinAddr: 0x10001BF10, symSize: 0x0 }
-  - { offsetInCU: 0x3AF, offset: 0x3AF, size: 0x8, addend: 0x0, symName: _texture, symBinAddr: 0x100016108, symSize: 0x0 }
-  - { offsetInCU: 0x3D9, offset: 0x3D9, size: 0x8, addend: 0x0, symName: _color_buffer, symBinAddr: 0x100010238, symSize: 0x0 }
-  - { offsetInCU: 0x3F3, offset: 0x3F3, size: 0x8, addend: 0x0, symName: _triangles_to_render, symBinAddr: 0x100016150, symSize: 0x0 }
-  - { offsetInCU: 0x43D, offset: 0x43D, size: 0x8, addend: 0x0, symName: _p_to_render, symBinAddr: 0x100010240, symSize: 0x0 }
-  - { offsetInCU: 0x452, offset: 0x452, size: 0x8, addend: 0x0, symName: _scale_matrix, symBinAddr: 0x1000160C8, symSize: 0x0 }
-  - { offsetInCU: 0x495, offset: 0x495, size: 0x8, addend: 0x0, symName: _rotation_matrix_x, symBinAddr: 0x100016008, symSize: 0x0 }
-  - { offsetInCU: 0x4AA, offset: 0x4AA, size: 0x8, addend: 0x0, symName: _rotation_matrix_y, symBinAddr: 0x100016048, symSize: 0x0 }
-  - { offsetInCU: 0x4BF, offset: 0x4BF, size: 0x8, addend: 0x0, symName: _rotation_matrix_z, symBinAddr: 0x100016088, symSize: 0x0 }
-  - { offsetInCU: 0x4D4, offset: 0x4D4, size: 0x8, addend: 0x0, symName: _translate_matrix, symBinAddr: 0x100016110, symSize: 0x0 }
-  - { offsetInCU: 0xB64, offset: 0xB64, size: 0x8, addend: 0x0, symName: _run_render_pipeline, symObjAddr: 0x0, symBinAddr: 0x10000312C, symSize: 0x90 }
-  - { offsetInCU: 0xB79, offset: 0xB79, size: 0x8, addend: 0x0, symName: _process_keyboard_input, symObjAddr: 0x90, symBinAddr: 0x1000031BC, symSize: 0xB0 }
-  - { offsetInCU: 0xB9D, offset: 0xB9D, size: 0x8, addend: 0x0, symName: _initialize_windowing_system, symObjAddr: 0x140, symBinAddr: 0x10000326C, symSize: 0x254 }
-  - { offsetInCU: 0xBC5, offset: 0xBC5, size: 0x8, addend: 0x0, symName: _clean_up_windowing_system, symObjAddr: 0x394, symBinAddr: 0x1000034C0, symSize: 0x48 }
-  - { offsetInCU: 0xBDA, offset: 0xBDA, size: 0x8, addend: 0x0, symName: _set_up_memory_buffers, symObjAddr: 0x3DC, symBinAddr: 0x100003508, symSize: 0x40 }
-  - { offsetInCU: 0xBEF, offset: 0xBEF, size: 0x8, addend: 0x0, symName: _clear_color_buffer, symObjAddr: 0x41C, symBinAddr: 0x100003548, symSize: 0xAC }
-  - { offsetInCU: 0xC4B, offset: 0xC4B, size: 0x8, addend: 0x0, symName: _draw_rectangle, symObjAddr: 0x4C8, symBinAddr: 0x1000035F4, symSize: 0xBC }
-  - { offsetInCU: 0xCDF, offset: 0xCDF, size: 0x8, addend: 0x0, symName: _draw_pixel, symObjAddr: 0x584, symBinAddr: 0x1000036B0, symSize: 0x80 }
-  - { offsetInCU: 0xD23, offset: 0xD23, size: 0x8, addend: 0x0, symName: _draw_triangle, symObjAddr: 0x604, symBinAddr: 0x100003730, symSize: 0x7C }
-  - { offsetInCU: 0xD9B, offset: 0xD9B, size: 0x8, addend: 0x0, symName: _draw_line, symObjAddr: 0x680, symBinAddr: 0x1000037AC, symSize: 0x154 }
-  - { offsetInCU: 0xE83, offset: 0xE83, size: 0x8, addend: 0x0, symName: _draw_filled_triangle, symObjAddr: 0x7D4, symBinAddr: 0x100003900, symSize: 0xA8 }
-  - { offsetInCU: 0xF25, offset: 0xF25, size: 0x8, addend: 0x0, symName: _perspective_project_point, symObjAddr: 0x87C, symBinAddr: 0x1000039A8, symSize: 0x98 }
-  - { offsetInCU: 0xF5B, offset: 0xF5B, size: 0x8, addend: 0x0, symName: _project_cube, symObjAddr: 0x914, symBinAddr: 0x100003A40, symSize: 0x3EC }
-  - { offsetInCU: 0x104D, offset: 0x104D, size: 0x8, addend: 0x0, symName: _project_pyramid, symObjAddr: 0xD00, symBinAddr: 0x100003E2C, symSize: 0x3EC }
-  - { offsetInCU: 0x113F, offset: 0x113F, size: 0x8, addend: 0x0, symName: _update_state, symObjAddr: 0x10EC, symBinAddr: 0x100004218, symSize: 0x6FA8 }
-  - { offsetInCU: 0x1552, offset: 0x1552, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x8094, symBinAddr: 0x10000B1C0, symSize: 0xE8 }
-  - { offsetInCU: 0x26, offset: 0x25E6, size: 0x8, addend: 0x0, symName: _vec3_rotate_x, symObjAddr: 0x0, symBinAddr: 0x10000B2A8, symSize: 0xE4 }
-  - { offsetInCU: 0x33, offset: 0x25F3, size: 0x8, addend: 0x0, symName: _vec3_rotate_x, symObjAddr: 0x0, symBinAddr: 0x10000B2A8, symSize: 0xE4 }
-  - { offsetInCU: 0x77, offset: 0x2637, size: 0x8, addend: 0x0, symName: _vec3_rotate_y, symObjAddr: 0xE4, symBinAddr: 0x10000B38C, symSize: 0xE4 }
-  - { offsetInCU: 0xBB, offset: 0x267B, size: 0x8, addend: 0x0, symName: _vec3_rotate_z, symObjAddr: 0x1C8, symBinAddr: 0x10000B470, symSize: 0xE4 }
-  - { offsetInCU: 0xFF, offset: 0x26BF, size: 0x8, addend: 0x0, symName: _vec2_length, symObjAddr: 0x2AC, symBinAddr: 0x10000B554, symSize: 0x38 }
-  - { offsetInCU: 0x127, offset: 0x26E7, size: 0x8, addend: 0x0, symName: _vec2_add, symObjAddr: 0x2E4, symBinAddr: 0x10000B58C, symSize: 0x44 }
-  - { offsetInCU: 0x16B, offset: 0x272B, size: 0x8, addend: 0x0, symName: _vec2_subtract, symObjAddr: 0x328, symBinAddr: 0x10000B5D0, symSize: 0x44 }
-  - { offsetInCU: 0x1AF, offset: 0x276F, size: 0x8, addend: 0x0, symName: _vec2_mul, symObjAddr: 0x36C, symBinAddr: 0x10000B614, symSize: 0x40 }
-  - { offsetInCU: 0x1F3, offset: 0x27B3, size: 0x8, addend: 0x0, symName: _vec2_div, symObjAddr: 0x3AC, symBinAddr: 0x10000B654, symSize: 0x40 }
-  - { offsetInCU: 0x237, offset: 0x27F7, size: 0x8, addend: 0x0, symName: _vec2_dot, symObjAddr: 0x3EC, symBinAddr: 0x10000B694, symSize: 0x34 }
-  - { offsetInCU: 0x26D, offset: 0x282D, size: 0x8, addend: 0x0, symName: _vec3_length, symObjAddr: 0x420, symBinAddr: 0x10000B6C8, symSize: 0x48 }
-  - { offsetInCU: 0x295, offset: 0x2855, size: 0x8, addend: 0x0, symName: _vec3_add, symObjAddr: 0x468, symBinAddr: 0x10000B710, symSize: 0x60 }
-  - { offsetInCU: 0x2D9, offset: 0x2899, size: 0x8, addend: 0x0, symName: _vec3_subtract, symObjAddr: 0x4C8, symBinAddr: 0x10000B770, symSize: 0x60 }
-  - { offsetInCU: 0x31D, offset: 0x28DD, size: 0x8, addend: 0x0, symName: _vec3_mul, symObjAddr: 0x528, symBinAddr: 0x10000B7D0, symSize: 0x58 }
-  - { offsetInCU: 0x361, offset: 0x2921, size: 0x8, addend: 0x0, symName: _vec3_div, symObjAddr: 0x580, symBinAddr: 0x10000B828, symSize: 0x58 }
-  - { offsetInCU: 0x3A5, offset: 0x2965, size: 0x8, addend: 0x0, symName: _vec3_cross, symObjAddr: 0x5D8, symBinAddr: 0x10000B880, symSize: 0x84 }
-  - { offsetInCU: 0x3E9, offset: 0x29A9, size: 0x8, addend: 0x0, symName: _vec3_dot, symObjAddr: 0x65C, symBinAddr: 0x10000B904, symSize: 0x48 }
-  - { offsetInCU: 0x41F, offset: 0x29DF, size: 0x8, addend: 0x0, symName: _vec4_from_vec3, symObjAddr: 0x6A4, symBinAddr: 0x10000B94C, symSize: 0x48 }
-  - { offsetInCU: 0x455, offset: 0x2A15, size: 0x8, addend: 0x0, symName: _vec3_from_vec4, symObjAddr: 0x6EC, symBinAddr: 0x10000B994, symSize: 0x40 }
-  - { offsetInCU: 0x26, offset: 0x2B14, size: 0x8, addend: 0x0, symName: _mat4_identity, symObjAddr: 0x0, symBinAddr: 0x10000B9D4, symSize: 0x44 }
-  - { offsetInCU: 0x33, offset: 0x2B21, size: 0x8, addend: 0x0, symName: _mat4_identity, symObjAddr: 0x0, symBinAddr: 0x10000B9D4, symSize: 0x44 }
-  - { offsetInCU: 0x5C, offset: 0x2B4A, size: 0x8, addend: 0x0, symName: _mat4_make_scale, symObjAddr: 0x44, symBinAddr: 0x10000BA18, symSize: 0x48 }
-  - { offsetInCU: 0xAF, offset: 0x2B9D, size: 0x8, addend: 0x0, symName: _mat4_make_translate, symObjAddr: 0x8C, symBinAddr: 0x10000BA60, symSize: 0x48 }
-  - { offsetInCU: 0x102, offset: 0x2BF0, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_x, symObjAddr: 0xD4, symBinAddr: 0x10000BAA8, symSize: 0x78 }
-  - { offsetInCU: 0x155, offset: 0x2C43, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_y, symObjAddr: 0x14C, symBinAddr: 0x10000BB20, symSize: 0x78 }
-  - { offsetInCU: 0x1A8, offset: 0x2C96, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_z, symObjAddr: 0x1C4, symBinAddr: 0x10000BB98, symSize: 0x78 }
-  - { offsetInCU: 0x1FB, offset: 0x2CE9, size: 0x8, addend: 0x0, symName: _mat4_mul_vec4, symObjAddr: 0x23C, symBinAddr: 0x10000BC10, symSize: 0x104 }
-  - { offsetInCU: 0x33, offset: 0x2DDD, size: 0x8, addend: 0x0, symName: _mesh_vertices, symObjAddr: 0x0, symBinAddr: 0x10001006C, symSize: 0x0 }
-  - { offsetInCU: 0x96, offset: 0x2E40, size: 0x8, addend: 0x0, symName: _mesh_faces, symObjAddr: 0x60, symBinAddr: 0x1000100CC, symSize: 0x0 }
-  - { offsetInCU: 0xF2, offset: 0x2E9C, size: 0x8, addend: 0x0, symName: _p_mesh_vertices, symObjAddr: 0xF0, symBinAddr: 0x10001015C, symSize: 0x0 }
-  - { offsetInCU: 0x113, offset: 0x2EBD, size: 0x8, addend: 0x0, symName: _p_mesh_faces, symObjAddr: 0x12C, symBinAddr: 0x100010198, symSize: 0x0 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _run_render_pipeline, symObjAddr: 0x0, symBinAddr: 0x100003E78, symSize: 0x90 }
+  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _is_running, symObjAddr: 0x19B90, symBinAddr: 0x1000141D8, symSize: 0x0 }
+  - { offsetInCU: 0x5B, offset: 0x5B, size: 0x8, addend: 0x0, symName: _window_width, symObjAddr: 0xB458, symBinAddr: 0x100014000, symSize: 0x0 }
+  - { offsetInCU: 0x77, offset: 0x77, size: 0x8, addend: 0x0, symName: _window_height, symObjAddr: 0xB45C, symBinAddr: 0x100014004, symSize: 0x0 }
+  - { offsetInCU: 0x8C, offset: 0x8C, size: 0x8, addend: 0x0, symName: _originX, symObjAddr: 0xB460, symBinAddr: 0x100014008, symSize: 0x0 }
+  - { offsetInCU: 0xA1, offset: 0xA1, size: 0x8, addend: 0x0, symName: _originY, symObjAddr: 0xB464, symBinAddr: 0x10001400C, symSize: 0x0 }
+  - { offsetInCU: 0xB6, offset: 0xB6, size: 0x8, addend: 0x0, symName: _scaling_factor, symObjAddr: 0xB468, symBinAddr: 0x100014010, symSize: 0x0 }
+  - { offsetInCU: 0xCB, offset: 0xCB, size: 0x8, addend: 0x0, symName: _previous_frame_time, symObjAddr: 0x19B94, symBinAddr: 0x1000141DC, symSize: 0x0 }
+  - { offsetInCU: 0xE0, offset: 0xE0, size: 0x8, addend: 0x0, symName: _camera_position, symObjAddr: 0xB46C, symBinAddr: 0x100014014, symSize: 0x0 }
+  - { offsetInCU: 0x130, offset: 0x130, size: 0x8, addend: 0x0, symName: _t_cnt, symObjAddr: 0x19B98, symBinAddr: 0x1000141E0, symSize: 0x0 }
+  - { offsetInCU: 0x145, offset: 0x145, size: 0x8, addend: 0x0, symName: _cube_scale, symObjAddr: 0xB478, symBinAddr: 0x100014020, symSize: 0x0 }
+  - { offsetInCU: 0x15A, offset: 0x15A, size: 0x8, addend: 0x0, symName: _cube_rotation, symObjAddr: 0x19B9C, symBinAddr: 0x1000141E4, symSize: 0x0 }
+  - { offsetInCU: 0x16F, offset: 0x16F, size: 0x8, addend: 0x0, symName: _cube_translate, symObjAddr: 0xB484, symBinAddr: 0x10001402C, symSize: 0x0 }
+  - { offsetInCU: 0x184, offset: 0x184, size: 0x8, addend: 0x0, symName: _p_scale, symObjAddr: 0xB490, symBinAddr: 0x100014038, symSize: 0x0 }
+  - { offsetInCU: 0x199, offset: 0x199, size: 0x8, addend: 0x0, symName: _p_rotation, symObjAddr: 0x19BA8, symBinAddr: 0x1000141F0, symSize: 0x0 }
+  - { offsetInCU: 0x1AE, offset: 0x1AE, size: 0x8, addend: 0x0, symName: _p_translate, symObjAddr: 0xB49C, symBinAddr: 0x100014044, symSize: 0x0 }
+  - { offsetInCU: 0x1C3, offset: 0x1C3, size: 0x8, addend: 0x0, symName: _animation_start_time, symObjAddr: 0x19BB4, symBinAddr: 0x1000141FC, symSize: 0x0 }
+  - { offsetInCU: 0x1F5, offset: 0x1F5, size: 0x8, addend: 0x0, symName: _animation_duration, symObjAddr: 0xB4A8, symBinAddr: 0x100014050, symSize: 0x0 }
+  - { offsetInCU: 0x20A, offset: 0x20A, size: 0x8, addend: 0x0, symName: _elapsed_time, symObjAddr: 0x19BB8, symBinAddr: 0x100014200, symSize: 0x0 }
+  - { offsetInCU: 0x21F, offset: 0x21F, size: 0x8, addend: 0x0, symName: _triangle_a, symObjAddr: 0xB4AC, symBinAddr: 0x100014054, symSize: 0x0 }
+  - { offsetInCU: 0x25C, offset: 0x25C, size: 0x8, addend: 0x0, symName: _triangle_b, symObjAddr: 0xB4B4, symBinAddr: 0x10001405C, symSize: 0x0 }
+  - { offsetInCU: 0x271, offset: 0x271, size: 0x8, addend: 0x0, symName: _triangle_c, symObjAddr: 0xB4BC, symBinAddr: 0x100014064, symSize: 0x0 }
+  - { offsetInCU: 0x286, offset: 0x286, size: 0x8, addend: 0x0, symName: _lead_triangle, symObjAddr: 0x19BBC, symBinAddr: 0x100014204, symSize: 0x0 }
+  - { offsetInCU: 0x2CF, offset: 0x2CF, size: 0x8, addend: 0x0, symName: _act2_initial_travel, symObjAddr: 0x19BD4, symBinAddr: 0x10001421C, symSize: 0x0 }
+  - { offsetInCU: 0x2E4, offset: 0x2E4, size: 0x8, addend: 0x0, symName: _act2_vertical_movement, symObjAddr: 0x19BD8, symBinAddr: 0x100014220, symSize: 0x0 }
+  - { offsetInCU: 0x2F9, offset: 0x2F9, size: 0x8, addend: 0x0, symName: _act2_horizontal_movement, symObjAddr: 0x19BDC, symBinAddr: 0x100014224, symSize: 0x0 }
+  - { offsetInCU: 0x30E, offset: 0x30E, size: 0x8, addend: 0x0, symName: _act2_final_vertical_movement, symObjAddr: 0x19BE0, symBinAddr: 0x100014228, symSize: 0x0 }
+  - { offsetInCU: 0x323, offset: 0x323, size: 0x8, addend: 0x0, symName: _act2_final_horizontal_movement, symObjAddr: 0x19BE4, symBinAddr: 0x10001422C, symSize: 0x0 }
+  - { offsetInCU: 0x338, offset: 0x338, size: 0x8, addend: 0x0, symName: _act2_triangle_leaves, symObjAddr: 0x19BE8, symBinAddr: 0x100014230, symSize: 0x0 }
+  - { offsetInCU: 0x35B, offset: 0x35B, size: 0x8, addend: 0x0, symName: _renderer, symBinAddr: 0x10001A000, symSize: 0x0 }
+  - { offsetInCU: 0x385, offset: 0x385, size: 0x8, addend: 0x0, symName: _window, symBinAddr: 0x10001FF10, symSize: 0x0 }
+  - { offsetInCU: 0x3AF, offset: 0x3AF, size: 0x8, addend: 0x0, symName: _texture, symBinAddr: 0x10001A108, symSize: 0x0 }
+  - { offsetInCU: 0x3D9, offset: 0x3D9, size: 0x8, addend: 0x0, symName: _color_buffer, symBinAddr: 0x100014238, symSize: 0x0 }
+  - { offsetInCU: 0x3F3, offset: 0x3F3, size: 0x8, addend: 0x0, symName: _triangles_to_render, symBinAddr: 0x10001A150, symSize: 0x0 }
+  - { offsetInCU: 0x43D, offset: 0x43D, size: 0x8, addend: 0x0, symName: _p_to_render, symBinAddr: 0x100014240, symSize: 0x0 }
+  - { offsetInCU: 0x452, offset: 0x452, size: 0x8, addend: 0x0, symName: _scale_matrix, symBinAddr: 0x10001A0C8, symSize: 0x0 }
+  - { offsetInCU: 0x495, offset: 0x495, size: 0x8, addend: 0x0, symName: _rotation_matrix_x, symBinAddr: 0x10001A008, symSize: 0x0 }
+  - { offsetInCU: 0x4AA, offset: 0x4AA, size: 0x8, addend: 0x0, symName: _rotation_matrix_y, symBinAddr: 0x10001A048, symSize: 0x0 }
+  - { offsetInCU: 0x4BF, offset: 0x4BF, size: 0x8, addend: 0x0, symName: _rotation_matrix_z, symBinAddr: 0x10001A088, symSize: 0x0 }
+  - { offsetInCU: 0x4D4, offset: 0x4D4, size: 0x8, addend: 0x0, symName: _translate_matrix, symBinAddr: 0x10001A110, symSize: 0x0 }
+  - { offsetInCU: 0xB64, offset: 0xB64, size: 0x8, addend: 0x0, symName: _run_render_pipeline, symObjAddr: 0x0, symBinAddr: 0x100003E78, symSize: 0x90 }
+  - { offsetInCU: 0xB79, offset: 0xB79, size: 0x8, addend: 0x0, symName: _process_keyboard_input, symObjAddr: 0x90, symBinAddr: 0x100003F08, symSize: 0xB0 }
+  - { offsetInCU: 0xB9D, offset: 0xB9D, size: 0x8, addend: 0x0, symName: _initialize_windowing_system, symObjAddr: 0x140, symBinAddr: 0x100003FB8, symSize: 0x254 }
+  - { offsetInCU: 0xBC5, offset: 0xBC5, size: 0x8, addend: 0x0, symName: _clean_up_windowing_system, symObjAddr: 0x394, symBinAddr: 0x10000420C, symSize: 0x48 }
+  - { offsetInCU: 0xBDA, offset: 0xBDA, size: 0x8, addend: 0x0, symName: _set_up_memory_buffers, symObjAddr: 0x3DC, symBinAddr: 0x100004254, symSize: 0x40 }
+  - { offsetInCU: 0xBEF, offset: 0xBEF, size: 0x8, addend: 0x0, symName: _clear_color_buffer, symObjAddr: 0x41C, symBinAddr: 0x100004294, symSize: 0xAC }
+  - { offsetInCU: 0xC4B, offset: 0xC4B, size: 0x8, addend: 0x0, symName: _draw_rectangle, symObjAddr: 0x4C8, symBinAddr: 0x100004340, symSize: 0xBC }
+  - { offsetInCU: 0xCDF, offset: 0xCDF, size: 0x8, addend: 0x0, symName: _draw_pixel, symObjAddr: 0x584, symBinAddr: 0x1000043FC, symSize: 0x80 }
+  - { offsetInCU: 0xD1F, offset: 0xD1F, size: 0x8, addend: 0x0, symName: _draw_triangle, symObjAddr: 0x604, symBinAddr: 0x10000447C, symSize: 0x7C }
+  - { offsetInCU: 0xD97, offset: 0xD97, size: 0x8, addend: 0x0, symName: _draw_line, symObjAddr: 0x680, symBinAddr: 0x1000044F8, symSize: 0x154 }
+  - { offsetInCU: 0xE72, offset: 0xE72, size: 0x8, addend: 0x0, symName: _draw_filled_triangle, symObjAddr: 0x7D4, symBinAddr: 0x10000464C, symSize: 0xA8 }
+  - { offsetInCU: 0xF14, offset: 0xF14, size: 0x8, addend: 0x0, symName: _perspective_project_point, symObjAddr: 0x87C, symBinAddr: 0x1000046F4, symSize: 0x98 }
+  - { offsetInCU: 0xF4A, offset: 0xF4A, size: 0x8, addend: 0x0, symName: _project_cube, symObjAddr: 0x914, symBinAddr: 0x10000478C, symSize: 0x3EC }
+  - { offsetInCU: 0x103C, offset: 0x103C, size: 0x8, addend: 0x0, symName: _project_pyramid, symObjAddr: 0xD00, symBinAddr: 0x100004B78, symSize: 0x3EC }
+  - { offsetInCU: 0x112E, offset: 0x112E, size: 0x8, addend: 0x0, symName: _update_state, symObjAddr: 0x10EC, symBinAddr: 0x100004F64, symSize: 0xA22C }
+  - { offsetInCU: 0x1703, offset: 0x1703, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xB318, symBinAddr: 0x10000F190, symSize: 0xE8 }
+  - { offsetInCU: 0x26, offset: 0x2797, size: 0x8, addend: 0x0, symName: _vec3_rotate_x, symObjAddr: 0x0, symBinAddr: 0x10000F278, symSize: 0xE4 }
+  - { offsetInCU: 0x33, offset: 0x27A4, size: 0x8, addend: 0x0, symName: _vec3_rotate_x, symObjAddr: 0x0, symBinAddr: 0x10000F278, symSize: 0xE4 }
+  - { offsetInCU: 0x77, offset: 0x27E8, size: 0x8, addend: 0x0, symName: _vec3_rotate_y, symObjAddr: 0xE4, symBinAddr: 0x10000F35C, symSize: 0xE4 }
+  - { offsetInCU: 0xBB, offset: 0x282C, size: 0x8, addend: 0x0, symName: _vec3_rotate_z, symObjAddr: 0x1C8, symBinAddr: 0x10000F440, symSize: 0xE4 }
+  - { offsetInCU: 0xFF, offset: 0x2870, size: 0x8, addend: 0x0, symName: _vec2_length, symObjAddr: 0x2AC, symBinAddr: 0x10000F524, symSize: 0x38 }
+  - { offsetInCU: 0x127, offset: 0x2898, size: 0x8, addend: 0x0, symName: _vec2_add, symObjAddr: 0x2E4, symBinAddr: 0x10000F55C, symSize: 0x44 }
+  - { offsetInCU: 0x16B, offset: 0x28DC, size: 0x8, addend: 0x0, symName: _vec2_subtract, symObjAddr: 0x328, symBinAddr: 0x10000F5A0, symSize: 0x44 }
+  - { offsetInCU: 0x1AF, offset: 0x2920, size: 0x8, addend: 0x0, symName: _vec2_mul, symObjAddr: 0x36C, symBinAddr: 0x10000F5E4, symSize: 0x40 }
+  - { offsetInCU: 0x1F3, offset: 0x2964, size: 0x8, addend: 0x0, symName: _vec2_div, symObjAddr: 0x3AC, symBinAddr: 0x10000F624, symSize: 0x40 }
+  - { offsetInCU: 0x237, offset: 0x29A8, size: 0x8, addend: 0x0, symName: _vec2_dot, symObjAddr: 0x3EC, symBinAddr: 0x10000F664, symSize: 0x34 }
+  - { offsetInCU: 0x26D, offset: 0x29DE, size: 0x8, addend: 0x0, symName: _vec3_length, symObjAddr: 0x420, symBinAddr: 0x10000F698, symSize: 0x48 }
+  - { offsetInCU: 0x295, offset: 0x2A06, size: 0x8, addend: 0x0, symName: _vec3_add, symObjAddr: 0x468, symBinAddr: 0x10000F6E0, symSize: 0x60 }
+  - { offsetInCU: 0x2D9, offset: 0x2A4A, size: 0x8, addend: 0x0, symName: _vec3_subtract, symObjAddr: 0x4C8, symBinAddr: 0x10000F740, symSize: 0x60 }
+  - { offsetInCU: 0x31D, offset: 0x2A8E, size: 0x8, addend: 0x0, symName: _vec3_mul, symObjAddr: 0x528, symBinAddr: 0x10000F7A0, symSize: 0x58 }
+  - { offsetInCU: 0x361, offset: 0x2AD2, size: 0x8, addend: 0x0, symName: _vec3_div, symObjAddr: 0x580, symBinAddr: 0x10000F7F8, symSize: 0x58 }
+  - { offsetInCU: 0x3A5, offset: 0x2B16, size: 0x8, addend: 0x0, symName: _vec3_cross, symObjAddr: 0x5D8, symBinAddr: 0x10000F850, symSize: 0x84 }
+  - { offsetInCU: 0x3E9, offset: 0x2B5A, size: 0x8, addend: 0x0, symName: _vec3_dot, symObjAddr: 0x65C, symBinAddr: 0x10000F8D4, symSize: 0x48 }
+  - { offsetInCU: 0x41F, offset: 0x2B90, size: 0x8, addend: 0x0, symName: _vec4_from_vec3, symObjAddr: 0x6A4, symBinAddr: 0x10000F91C, symSize: 0x48 }
+  - { offsetInCU: 0x455, offset: 0x2BC6, size: 0x8, addend: 0x0, symName: _vec3_from_vec4, symObjAddr: 0x6EC, symBinAddr: 0x10000F964, symSize: 0x40 }
+  - { offsetInCU: 0x26, offset: 0x2CC5, size: 0x8, addend: 0x0, symName: _mat4_identity, symObjAddr: 0x0, symBinAddr: 0x10000F9A4, symSize: 0x44 }
+  - { offsetInCU: 0x33, offset: 0x2CD2, size: 0x8, addend: 0x0, symName: _mat4_identity, symObjAddr: 0x0, symBinAddr: 0x10000F9A4, symSize: 0x44 }
+  - { offsetInCU: 0x5C, offset: 0x2CFB, size: 0x8, addend: 0x0, symName: _mat4_make_scale, symObjAddr: 0x44, symBinAddr: 0x10000F9E8, symSize: 0x48 }
+  - { offsetInCU: 0xAF, offset: 0x2D4E, size: 0x8, addend: 0x0, symName: _mat4_make_translate, symObjAddr: 0x8C, symBinAddr: 0x10000FA30, symSize: 0x48 }
+  - { offsetInCU: 0x102, offset: 0x2DA1, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_x, symObjAddr: 0xD4, symBinAddr: 0x10000FA78, symSize: 0x78 }
+  - { offsetInCU: 0x155, offset: 0x2DF4, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_y, symObjAddr: 0x14C, symBinAddr: 0x10000FAF0, symSize: 0x78 }
+  - { offsetInCU: 0x1A8, offset: 0x2E47, size: 0x8, addend: 0x0, symName: _mat4_make_rotation_z, symObjAddr: 0x1C4, symBinAddr: 0x10000FB68, symSize: 0x78 }
+  - { offsetInCU: 0x1FB, offset: 0x2E9A, size: 0x8, addend: 0x0, symName: _mat4_mul_vec4, symObjAddr: 0x23C, symBinAddr: 0x10000FBE0, symSize: 0x104 }
+  - { offsetInCU: 0x33, offset: 0x2F8E, size: 0x8, addend: 0x0, symName: _mesh_vertices, symObjAddr: 0x0, symBinAddr: 0x10001406C, symSize: 0x0 }
+  - { offsetInCU: 0x96, offset: 0x2FF1, size: 0x8, addend: 0x0, symName: _mesh_faces, symObjAddr: 0x60, symBinAddr: 0x1000140CC, symSize: 0x0 }
+  - { offsetInCU: 0xF2, offset: 0x304D, size: 0x8, addend: 0x0, symName: _p_mesh_vertices, symObjAddr: 0xF0, symBinAddr: 0x10001415C, symSize: 0x0 }
+  - { offsetInCU: 0x113, offset: 0x306E, size: 0x8, addend: 0x0, symName: _p_mesh_faces, symObjAddr: 0x12C, symBinAddr: 0x100014198, symSize: 0x0 }
 ...

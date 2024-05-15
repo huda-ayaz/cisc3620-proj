@@ -1,7 +1,6 @@
 {
     "files.associations": {
         "mesh.h": "c",
-        "math.h": "c",
-        "stdbool.h": "c"
+        "math.h": "c"
     }
 }
